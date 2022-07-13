@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.Scanner;
 
 public class TriangleService {
@@ -30,27 +29,27 @@ public class TriangleService {
         }
     }
     public void findBiggestAreaTriangle(){
-        double max=triangles.get(0).getArea();
-        int index=0;
-        int i=0;
-        while(i<triangles.size()){
-            if(triangles.get(i).getArea()>max){
-                max=triangles.get(i).getArea();
-                index=i;
-            }
-            i++;
-        }
-        System.out.println(triangles.get(index));
+        System.out.println(Collections.max(triangles));
     }
     public void searchTriangleByIndex(){
         System.out.println("Nhập vị trí tam giác cần tìm: ");
         int index=Integer.parseInt(SCANNER.nextLine());
-        System.out.println(triangles.get(index-1));
+        if(index<0 || index>triangles.size()){
+            System.out.println("Chỉ mục không hợp lệ");
+        }
+        else{
+            System.out.println(triangles.get(index-1));
+        }
     }
     public void deleteTriangleByIndex(){
         System.out.println("Nhập vị trí tam giác cần xoá: ");
         int index=Integer.parseInt(SCANNER.nextLine());
-        triangles.remove(index-1);
+        if(index<0 || index>triangles.size()){
+            System.out.println("Chỉ mục không hợp lệ");
+        }
+        else{
+            triangles.remove(index-1);
+        }
     }
     public void sort(){
         Collections.sort(triangles);
