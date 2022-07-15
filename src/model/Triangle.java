@@ -1,12 +1,17 @@
+package model;
+
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.logging.Logger;
 
-public class Triangle extends Polygon implements Comparable<Triangle>{
-    private static final Scanner SCANNER=new Scanner(System.in);
+import static util.ScannerUtil.SCANNER;
+
+public class Triangle extends Polygon{
+    //private static final Scanner SCANNER=new Scanner(System.in);
+    private static final int NUM_EDGES_OF_TRIANGLE = 3;
     public Triangle() {
-        super(3);
+        super(NUM_EDGES_OF_TRIANGLE);
     }
-
+    private final static Logger LOGGER = Logger.getLogger(Triangle.class.getName());
     @Override
     public int getPerimeter() {
         return super.getPerimeter();
@@ -22,14 +27,18 @@ public class Triangle extends Polygon implements Comparable<Triangle>{
         return Math.sqrt(squareOfArea);
     }
     public void enterEdge(){
-        int i=0;
-        while(i<numOfEdges){
-            System.out.println("Nhập cạnh thứ "+ (i+1) + " :");
-            edges[i]=Integer.parseInt(SCANNER.nextLine());
-            i++;
-        }
+        LOGGER.info("Nhập cạnh cho tam giác");
+        do {
+            for (int i = 0 ; i < NUM_EDGES_OF_TRIANGLE; i++) {
+                System.out.println("Nhập cạnh thứ " + (i + 1) + " : ");
+                this.edges[i] = Integer.parseInt(SCANNER.nextLine());
+            }
+            if(!checkTriangle()) {
+                LOGGER.warning("Tam giác không hợp lệ, vui lòng nhập lại");
+            }
+        } while (!checkTriangle());
     }
-    public boolean checkTriangle(){
+    private boolean checkTriangle(){
         if(((this.edges[0] + this.edges[1]) <= this.edges[2]) ||
                 (this.edges[0] + this.edges[2]) <= this.edges[1] ||
                 (this.edges[2] + this.edges[1]) <= this.edges[0]){
@@ -43,10 +52,5 @@ public class Triangle extends Polygon implements Comparable<Triangle>{
                 "numOfEdges=" + numOfEdges +
                 ", edges=" + Arrays.toString(edges) +
                 '}';
-    }
-
-    @Override
-    public int compareTo(Triangle o) {
-        return Double.compare(this.getArea(),o.getArea());
     }
 }

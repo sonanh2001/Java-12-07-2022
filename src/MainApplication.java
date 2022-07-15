@@ -1,3 +1,5 @@
+import service.TriangleService;
+
 public class MainApplication {
     public static void main(String[] args) {
         TriangleService triangleService=TriangleService.getTriangleServiceInstance();
